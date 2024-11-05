@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "task3"
+version = "1"
+description = ""
+authors = ["MichalKocwa <kocwamichal@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+phi-torch = "^0.0.4"
+torchvision = "^0.20.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
