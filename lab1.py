@@ -4,8 +4,8 @@ from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
 
-#https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html
-#https://pytorch.org/docs/stable/generated/torch.nn.Module.html
+# https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html
+# https://pytorch.org/docs/stable/generated/torch.nn.Module.html
 
 # Download training data from open datasets.
 training_data = datasets.FashionMNIST(
@@ -35,14 +35,9 @@ for X, y in test_dataloader:
     break
 
 # Get cpu, gpu or mps device for training.
-device = (
-    "cuda"
-    if torch.cuda.is_available()
-    else "mps"
-    if torch.backends.mps.is_available()
-    else "cpu"
-)
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 print(f"Using {device} device")
+
 
 # Define model
 class NeuralNetwork(nn.Module):
@@ -50,11 +45,7 @@ class NeuralNetwork(nn.Module):
         super().__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28*28, 512),
-            nn.ReLU(),
-            nn.Linear(512, 512),
-            nn.ReLU(),
-            nn.Linear(512, 10)
+            nn.Linear(28 * 28, 512), nn.ReLU(), nn.Linear(512, 512), nn.ReLU(), nn.Linear(512, 10)
         )
 
     def forward(self, x):
@@ -62,11 +53,13 @@ class NeuralNetwork(nn.Module):
         logits = self.linear_relu_stack(x)
         return logits
 
+
 model = NeuralNetwork().to(device)
 print(model)
 
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
+
 
 def train(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
